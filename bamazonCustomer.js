@@ -16,7 +16,7 @@ var connection = mysql.createConnection({
 
     user: "root",
 
-    password: "",
+    password: "Feb24021103",
     database: "bamazon_DB"
 });
 
@@ -24,3 +24,15 @@ connection.connect(function (err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
 });
+
+// Initializing Shopping
+startShopping();
+
+function startShopping() {
+    connection.query('SELECT * FROM Products', function (err, res) {
+        for (var i = 0; i < res.length; i++) {
+            table.push([res[i].item_id, res[i].product_name, res[i].price.toFixed(2), res[i].stock_quantity])
+        }
+        console.log(table.toString());
+    })
+}
